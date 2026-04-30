@@ -53,7 +53,11 @@ depopts: ["lwt" "logs"]
 build: [
   ["rm" "-rf" "vendor"]
   ["dune" "build" "-p" "coq-lsp" "-j" jobs]
-  ["cp" "coq-lsp.install" "bens-rocq-lsp.install"]
+  [
+    "sh"
+    "-c"
+    "sed -e 's/^lib:/lib_root:/' -e 's/^libexec:/libexec_root:/' -e 's/{\"/{\"coq-lsp\\//g' -e 's#\"_build/install/default/lib/coq-lsp/META\"#\"_build/install/default/lib/coq-lsp/META\" {\"coq-lsp/META\"}#' coq-lsp.install > bens-rocq-lsp.install"
+  ]
 ]
 run-test: [["dune" "runtest" "-p" "coq-lsp" "-j" jobs]]
 
