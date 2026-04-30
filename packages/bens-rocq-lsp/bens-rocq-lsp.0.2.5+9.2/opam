@@ -1,0 +1,65 @@
+opam-version: "2.0"
+synopsis: "Language Server Protocol native server for Coq"
+description:
+"""
+Language Server Protocol native server for Coq
+"""
+maintainer: "Benjamin Peters <bpeters@mpi-sws.org>"
+bug-reports: "https://github.com/ejgallego/coq-lsp/issues"
+homepage: "https://github.com/ejgallego/coq-lsp"
+dev-repo: "git+ssh://git-rts@gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git"
+authors: [
+  "Emilio Jesús Gallego Arias <e@x80.org>"
+  "Ali Caglayan <alizter@gmail.com>"
+  "Shachar Itzhaky <shachari@cs.technion.ac.il>"
+  "Ramkumar Ramachandra <r@artagnon.com>"
+]
+license: "LGPL-2.1-or-later"
+doc: "https://ejgallego.github.io/coq-lsp/"
+
+depends: [
+    ("ocaml" {>= "5.0"} & "ocaml" {< "5.3"}
+  | ("ocaml" {>= "4.12"} & "memprof-limits" {>= "0.2.1"}))
+
+  "dune" {>= "3.13.0"}
+  "cmdliner" {>= "1.1.0"}
+  "yojson" {>= "1.7.0"}
+  "uri" {>= "4.2.0"}
+  "dune-build-info" {>= "3.2.0"}
+  "tyxml" {>= "4.5.0"}
+  "menhir" {>= "20220210"}
+  "ppx_inline_test" {>= "v0.15.0"}
+  "ocamlfind" {>= "1.9.8"}
+
+  "rocq-core" {>= "9.2" & < "9.3"}
+  "rocq-stdlib" {>= "9" & with-test}
+
+  "ppx_deriving" {>= "5.2"}
+  "ppx_deriving_yojson" {>= "3.7.0"}
+  "ppx_import" {>= "1.11.0"}
+  "sexplib" {>= "v0.15.0" & < "v0.18"}
+  "ppx_sexp_conv" {>= "v0.15.0" & < "v0.18"}
+  "ppx_compare" {>= "v0.15.0" & < "v0.18"}
+  "ppx_hash" {>= "v0.15.0" & < "v0.18"}
+]
+
+conflicts: [
+  "coq-lsp"
+  "result" {< "1.5"}
+]
+
+depopts: ["lwt" "logs"]
+
+build: [
+  ["rm" "-rf" "vendor"]
+  ["dune" "build" "-p" "coq-lsp" "-j" jobs]
+  ["cp" "coq-lsp.install" "bens-rocq-lsp.install"]
+]
+run-test: [["dune" "runtest" "-p" "coq-lsp" "-j" jobs]]
+
+url {
+  src:
+    "git+ssh://git-rts@gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git#bens-rocq-lsp.0.2.5+9.2"
+}
+x-commit-hash: "dfb3695cf219846b5fa55a22d449df495ccb7e60"
+x-maintenance-intent: ["(latest)"]
