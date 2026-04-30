@@ -7,7 +7,7 @@ Language Server Protocol native server for Coq
 maintainer: "Benjamin Peters <bpeters@mpi-sws.org>"
 bug-reports: "https://github.com/ejgallego/coq-lsp/issues"
 homepage: "https://github.com/ejgallego/coq-lsp"
-dev-repo: "git+ssh://git-rts@gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git"
+dev-repo: "git+https://gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git"
 authors: [
   "Emilio Jesús Gallego Arias <e@x80.org>"
   "Ali Caglayan <alizter@gmail.com>"
@@ -63,7 +63,7 @@ run-test: [["dune" "runtest" "-p" "coq-lsp" "-j" jobs]]
 
 url {
   src:
-    "git+ssh://git-rts@gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git#bens-rocq-lsp.0.2.5+9.2"
+    "git+https://gitlab.mpi-sws.org/bpeters/bens-rocq-lsp.git#bens-rocq-lsp.0.2.5+9.2"
 }
 x-commit-hash: "dfb3695cf219846b5fa55a22d449df495ccb7e60"
 x-maintenance-intent: ["(latest)"]
