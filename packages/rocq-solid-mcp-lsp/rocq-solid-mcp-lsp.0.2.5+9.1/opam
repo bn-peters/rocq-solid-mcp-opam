@@ -1,0 +1,70 @@
+opam-version: "2.0"
+synopsis: "Patched rocq-lsp (coq-lsp) for the RocqSolid MCP server"
+description:
+"""
+Language Server Protocol native server for Coq
+"""
+maintainer: "Benjamin Peters <bpeters@mpi-sws.org>"
+bug-reports: "https://github.com/bn-peters/rocq-solid-mcp/issues"
+homepage: "https://github.com/bn-peters/rocq-solid-mcp"
+dev-repo: "git+https://github.com/bn-peters/rocq-lsp.git"
+authors: [
+  "Emilio Jesús Gallego Arias <e@x80.org>"
+  "Ali Caglayan <alizter@gmail.com>"
+  "Shachar Itzhaky <shachari@cs.technion.ac.il>"
+  "Ramkumar Ramachandra <r@artagnon.com>"
+]
+license: "LGPL-2.1-or-later"
+doc: "https://ejgallego.github.io/coq-lsp/"
+
+depends: [
+    ("ocaml" {>= "5.0"} & "ocaml" {< "5.3"}
+  | ("ocaml" {>= "4.12"} & "memprof-limits" {>= "0.2.1"}))
+
+  "dune" {>= "3.13.0"}
+  "cmdliner" {>= "1.1.0"}
+  "yojson" {>= "1.7.0"}
+  "uri" {>= "4.2.0"}
+  "dune-build-info" {>= "3.2.0"}
+  "tyxml" {>= "4.5.0"}
+  "menhir" {>= "20220210"}
+  "ppx_inline_test" {>= "v0.15.0"}
+  "ocamlfind" {>= "1.9.8"}
+
+  "rocq-core" {>= "9.1" & < "9.2"}
+  "rocq-stdlib" {>= "9" & with-test}
+
+  "ppx_deriving" {>= "5.2"}
+  "ppx_deriving_yojson" {>= "3.7.0"}
+  "ppx_import" {>= "1.11.0"}
+  "sexplib" {>= "v0.15.0" & < "v0.18"}
+  "ppx_sexp_conv" {>= "v0.15.0" & < "v0.18"}
+  "ppx_compare" {>= "v0.15.0" & < "v0.18"}
+  "ppx_hash" {>= "v0.15.0" & < "v0.18"}
+]
+
+conflicts: [
+  "coq-lsp"
+  "bens-rocq-lsp"
+  "result" {< "1.5"}
+]
+
+depopts: ["lwt" "logs"]
+
+build: [
+  ["rm" "-rf" "vendor"]
+  ["dune" "build" "-p" "coq-lsp" "-j" jobs]
+  [
+    "sh"
+    "-c"
+    "sed -e 's/^lib:/lib_root:/' -e 's/^libexec:/libexec_root:/' -e 's/{\"/{\"coq-lsp\\//g' -e 's#\"_build/install/default/lib/coq-lsp/META\"#\"_build/install/default/lib/coq-lsp/META\" {\"coq-lsp/META\"}#' coq-lsp.install > rocq-solid-mcp-lsp.install"
+  ]
+]
+run-test: [["dune" "runtest" "-p" "coq-lsp" "-j" jobs]]
+
+url {
+  src:
+    "git+https://github.com/bn-peters/rocq-lsp.git#rocq-solid-mcp-lsp.0.2.5+9.1"
+}
+x-commit-hash: "a063b957149c42eafd40194b6445a3172fbbb1cd"
+x-maintenance-intent: ["(latest)"]

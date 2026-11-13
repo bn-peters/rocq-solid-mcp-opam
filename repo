@@ -1,3 +1,3 @@
 opam-version: "2.0"
-browse: "https://gitlab.mpi-sws.org/bpeters/opam"
-upstream: "https://gitlab.mpi-sws.org/bpeters/opam"
+browse: "https://github.com/bn-peters/rocq-solid-mcp-opam"
+upstream: "https://github.com/bn-peters/rocq-solid-mcp-opam"
