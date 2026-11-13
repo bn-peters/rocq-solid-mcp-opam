@@ -46,7 +46,6 @@ depends: [
 
 conflicts: [
   "coq-lsp"
-  "bens-rocq-lsp"
   "result" {< "1.5"}
 ]
 
